@@ -17,33 +17,16 @@ namespace Collections
             primeNumbers.Remove(3);
             primeNumbers.Contains(5);
             Console.WriteLine("list contains element  ", primeNumbers);
-            foreach (int prime in primeNumbers)
+            foreach(int element in primeNumbers)
             {
-                Console.WriteLine("The prime numbers are " + prime);
+                Console.WriteLine("The prime numbers are "+ element);
             }
-        }
-        public static void UsingArray()
-        {
+            
+       
+       
 
         
-            string[] cities = new string[] { "Mumbai", "London", "New York" };
-
-            var popularCities = new List<string>();
-
-            // adding an array in a List
-            popularCities.AddRange(cities);
-
-            var favouriteCities = new List<string>();
-
-            // adding a List 
-            favouriteCities.AddRange(popularCities);
             
-            foreach(string place in favouriteCities)
-            {
-                Console.WriteLine("The cities are " + place);
-                //Accessing list
-                Console.WriteLine("Accessing list " +favouriteCities[0]);
-            }
 
         }
     }
