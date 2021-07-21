@@ -16,6 +16,9 @@ namespace Collections
                 case "2":
                     SortedList.SortedListDemo();
                     break;
+                case "3":
+                    Dictionary.DictionaryDemo();
+                    break;
 
             }
 
