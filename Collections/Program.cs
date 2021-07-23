@@ -21,6 +21,7 @@ namespace Collections
                     break;
                 case "4":
                     Collections.AddressBook.GetCustomer();
+                    Collections.AddressBook.Modify();
                     Collections.AddressBook.ListingPeople();
                     break;
 
