@@ -19,6 +19,10 @@ namespace Collections
                 case "3":
                     Dictionary.DictionaryDemo();
                     break;
+                case "4":
+                    Collections.AddressBook.GetCustomer();
+                    Collections.AddressBook.ListingPeople();
+                    break;
 
             }
 
