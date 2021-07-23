@@ -7,7 +7,8 @@ namespace Collections
     {
 
         public static Dictionary<string, List<AddrBook>> addressBook = new Dictionary<string, List<AddrBook>>();
-
+        public static Dictionary<string, List<AddrBook>> City = new Dictionary<string, List<AddrBook>>();
+        public static Dictionary<string, List<AddrBook>> State = new Dictionary<string, List<AddrBook>>();
         static void Main(string[] args)
         {
 
@@ -57,36 +58,57 @@ namespace Collections
                 }
                 Console.WriteLine("1.To modify the details");
                 Console.WriteLine("2.To remove the details");
-                Console.WriteLine("3.Exit!");
-                switch (Console.ReadLine())
+                Console.WriteLine("3.city or state");
+                Console.WriteLine("3.Exit!"); int option = Convert.ToInt32(Console.ReadLine());
+                switch (option)
                 {
-                    case "1":
+                    case 1:
                         List.ListDemo();
                         break;
-                    case "2":
+                    case 2:
                         SortedList.SortedListDemo();
                         break;
-                    case "3":
+                    case 3:
                         Dictionary.DictionaryDemo();
                         break;
-                    case "4":
+                    case 4:
                 
                         Collections.AddressBook.GetCustomer();
                         Collections.AddressBook.ListingPeople();
                         break;
-                    case "5":
+                    case 5:
                         Collections.AddressBook.GetCustomer();
                         AddressBook.Modify();
                         Collections.AddressBook.ListingPeople();
                         break;
-                    case "6":
-                        Collections.AddressBook.GetCustomer();
-                        Collections.AddressBook.ListingPeople();
-                        break;
-                    case "7":
+                    
+                    case 6:
 
                         Collections.AddressBook.GetCustomer();
                         Collections.AddressBook.RemovePeople();
+                        break;
+                    case 7:
+                        Console.WriteLine("Enter 1-To Search a person through a City");
+                        Console.WriteLine("Enter 2-To Search a person through a State");
+                        Console.WriteLine("Enter 3-To view a person by state list or city list");
+                        int opt = Convert.ToInt32(Console.ReadLine());
+                        switch (opt)
+                        {
+
+                            case 1:
+                                SearchAddress(opt);
+                                break;
+                            case 2:
+                                SearchAddress(opt);
+                                break;
+                            case 3:
+                                AddrBook.DisplayCityorState();
+
+                                break;
+                            default:
+                                Console.WriteLine("Invalid Option!");
+                                break;
+                        }
                         break;
                     default:
                         Console.WriteLine("Enter a valid option");
@@ -114,6 +136,29 @@ namespace Collections
 
             }
 
+        }
+        static void SearchAddress(int option)
+        {
+            string city, state;
+            if (option == 1)
+            {
+                Console.WriteLine("Enter the City Name");
+                city = Console.ReadLine();
+                foreach (KeyValuePair<string, List<AddrBook>> kvp in addressBook)
+                {
+                    AddrBook.StoreCityList(kvp.Key, kvp.Value, city);
+
+                }
+                if (option == 2)
+                {
+                    Console.WriteLine("Enter the City Name");
+                    state = Console.ReadLine();
+                    foreach (KeyValuePair<string, List<AddrBook>> kvp in addressBook)
+                    {
+                        AddrBook.StoreStateList(kvp.Key, kvp.Value, state);
+                    }
+                }
+            }
         }
 
 
