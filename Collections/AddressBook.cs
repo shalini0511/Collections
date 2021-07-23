@@ -7,81 +7,83 @@ namespace Collections
 {
 
 
+
     public interface IAddressBookSystem
     {
-        void GetCustomer();
+        //void GetCustomer();
 
         void ListingPeople();
         void RemovePeople();
     }
     public class AddrBook : IAddressBookSystem
     {
-        public LinkedList<Person> people;
+        public static Dictionary<string, List<AddrBook>> City = new Dictionary<string, List<AddrBook>>();
+        public static Dictionary<string, List<AddrBook>> State = new Dictionary<string, List<AddrBook>>();
+        public List<AddrBook> stateList;
+        public List<AddrBook> cityList;
+        public List<AddrBook> people;
         public AddrBook()
         {
-            people = new LinkedList<Person>();
+            people = new List<AddrBook>();
         }
-
-
-        public class Person
+        public string firstName;
+        public string lastName;
+        public string address;
+        public string city;
+        public string state;
+        public string zipCode;
+        public string phoneNum;
+        public string emailId;
+        public AddrBook(string firstName, string lastName, string address, string city, string state, string zip, string phoneNumber, string email)
         {
-            public string FirstName { get; set; }
-            public string LastName { get; set; }
-            public string PhoneNumber { get; set; }
-            public string Addresses { get; set; }
-            public string City { get; set; }
-            public string State { get; set; }
-            public string ZipCode { get; set; }
-            public string PhoneNum { get; set; }
-            public string EmailId { get; set; }
-        }
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.address = address;
+            this.city = city;
+            this.state = state;
+            this.zipCode = zip;
+            this.phoneNum = phoneNumber;
+            this.emailId = email;
 
+        }
         //Getting the user details
-        public void GetCustomer()
+        public void GetCustomer(string firstName, string lastName, string phoneNum, string address, string city, string state, string zipCode, string emailId)
         {
 
-            Person person = new Person();
-
-            Console.Write("Enter First Name: ");
-            person.FirstName = Console.ReadLine();
-
-            Console.Write("Enter Last Name: ");
-            person.LastName = Console.ReadLine();
-
-            Console.Write("Enter Address : ");
-            person.Addresses = Console.ReadLine();
-
-            Console.Write("Enter City : ");
-            person.City = Console.ReadLine();
-
-            Console.Write("Enter State : ");
-            person.State = Console.ReadLine();
-
-            Console.Write("Enter ZipCode: ");
-            person.ZipCode = Console.ReadLine();
-
-            Console.Write("Enter Phone Number: ");
-            person.PhoneNum = Console.ReadLine();
-
-            Console.Write("Enter EmailId: ");
-            person.EmailId = Console.ReadLine();
-
-            people.AddLast(person);
+            AddrBook person = new AddrBook(firstName, lastName, phoneNum, address, city, state, zipCode, emailId);
+            if (people.Count == 0)
+            {
+                people.Add(person);
+            }
+            else
+            {
+                AddrBook people = this.people.Find(a => a.firstName.Equals(firstName));
+                if (people == null)
+                {
+                    AddrBook p = new AddrBook(firstName, lastName, address, city, state, phoneNum, zipCode, emailId);
+                    this.people.Add(p);
+                }
+                else
+                {
+                    Console.WriteLine("-------Record is already exists-------");
+                    Console.WriteLine("Modify the details which has duplicate name");
+                    Modify();
+                }
+            }
         }
 
 
         //Print the details
-        public void PrintCustomer(Person person)
+        public void PrintCustomer(AddrBook person)
         {
-            Console.WriteLine("First Name: " + person.FirstName);
-            Console.WriteLine("Last Name: " + person.LastName);
-            Console.WriteLine("Phone Number: " + person.PhoneNumber);
-            Console.WriteLine("Address : " + person.Addresses);
-            Console.WriteLine("City : " + person.City);
-            Console.WriteLine("State : " + person.State);
-            Console.WriteLine("ZipCode : " + person.ZipCode);
-            Console.WriteLine("Phone Number: " + person.PhoneNum);
-            Console.WriteLine("Email Id: " + person.EmailId);
+            Console.WriteLine("First Name: " + person.firstName);
+            Console.WriteLine("Last Name: " + person.lastName);
+            Console.WriteLine("Phone Number: " + person.phoneNum);
+            Console.WriteLine("Address : " + person.address);
+            Console.WriteLine("City : " + person.city);
+            Console.WriteLine("State : " + person.state);
+            Console.WriteLine("ZipCode : " + person.zipCode);
+            Console.WriteLine("Email Id: " + person.emailId);
             Console.WriteLine("-------------------------------------------");
         }
         //Modify the details
@@ -93,7 +95,7 @@ namespace Collections
                 string Modified = Console.ReadLine();
                 foreach (var person in people)
                 {
-                    if (person.FirstName.ToUpper() == Modified.ToUpper())
+                    if (person.firstName.ToUpper() == Modified.ToUpper())
                     {
                         while (true)
                         {
@@ -111,31 +113,31 @@ namespace Collections
                             {
                                 case 1:
                                     Console.WriteLine("Enter the New First Name: ");
-                                    person.FirstName = Console.ReadLine();
+                                    person.firstName = Console.ReadLine();
                                     break;
                                 case 2:
                                     Console.WriteLine("Enter the New Last Name: ");
-                                    person.LastName = Console.ReadLine();
+                                    person.lastName = Console.ReadLine();
                                     break;
                                 case 3:
                                     Console.WriteLine("Enter the New Phone Number: ");
-                                    person.PhoneNum = Console.ReadLine();
+                                    person.phoneNum = Console.ReadLine();
                                     break;
                                 case 4:
                                     Console.WriteLine("Enter the New Address: ");
-                                    person.Addresses = Console.ReadLine();
+                                    person.address = Console.ReadLine();
                                     break;
                                 case 5:
                                     Console.WriteLine("Enter the New City: ");
-                                    person.City = Console.ReadLine();
+                                    person.city = Console.ReadLine();
                                     break;
                                 case 6:
                                     Console.WriteLine("Enter the New State: ");
-                                    person.State = Console.ReadLine();
+                                    person.state = Console.ReadLine();
                                     break;
                                 case 7:
                                     Console.WriteLine("Enter the New Pin Code: ");
-                                    person.ZipCode = Console.ReadLine();
+                                    person.zipCode = Console.ReadLine();
                                     break;
                                 case 8:
                                     return;
@@ -170,9 +172,9 @@ namespace Collections
                 PrintCustomer(person);
             }
             return;
-            Console.WriteLine("\nPress any key to continue.");
+            //Console.WriteLine("\nPress any key to continue.");
 
-            Console.ReadKey();
+            //Console.ReadKey();
 
         }
         //Removing the field using Lambda Function
@@ -180,7 +182,7 @@ namespace Collections
         {
             Console.WriteLine("Enter the first name of the person you would like to remove.");
             string firstName = Console.ReadLine();
-            Person person = people.FirstOrDefault(x => x.FirstName.ToUpper() == firstName.ToUpper());
+            AddrBook person = people.FirstOrDefault(x => x.firstName.ToUpper() == firstName.ToUpper());
             if (person == null)
             {
                 Console.WriteLine("That person could not be found..");
@@ -197,7 +199,25 @@ namespace Collections
 
             }
         }
-    }
+        public static void StoreCityList(string key, List<AddrBook> cityList, string city)
+        {
+            List<AddrBook> CityList = cityList.FindAll(a => a.city.ToLower() == city);
+            foreach (var i in CityList)
+            {
+                Console.WriteLine("Found person \"{0}\" in Address Book \"{1}\" , residing in City {2}", i.firstName, key, i.city);
+            }
+        }
+        //Display Person names found in given State
+        public static void StoreStateList(string key, List<AddrBook> stateList, string state)
+        {
+            List<AddrBook> StateList = stateList.FindAll(x => x.state.ToLower() == state);
+            foreach (var i in StateList)
+            {
+                Console.WriteLine("Found person \"{0}\" in Address Book \"{1}\" , residing in State {2}", i.firstName, key, i.state);
+            }
+        }
 
+
+    }
 
 }
